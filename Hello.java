@@ -67,10 +67,9 @@ public void Advertise(String CookieType){
 else if(CookieType == "peanut butter"){
     System.out.println("Eat more " + CookieTypes[1].toUpperCase().charAt(CookieTypes[1].indexOf("pean")) + CookieTypes[1].toUpperCase().charAt(CookieTypes[1].indexOf("butt")) + " Cookies!");}
     else if(CookieType == "peanut butter chocolate"){
-        System.out.println("Eat more " + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("pean")) + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("butt")) + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("choc")) + " Cookies!");}
-else{
-    System.out.println("Eat more cookies!");
-}
+        System.out.println("Eat more " + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("pean")) + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("butt")) +
+        CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("choc")) + " Cookies!");}
+
 }
     // constructor method
     public Store(String product, int count, double price, String address) {
@@ -93,7 +92,7 @@ cookieShop.ListCookiesInStock();
 cookieShop.getNumberofCookieType(2);
       cookieShop.Sell(700, 3000, true);
       cookieShop.StockInventory();
-cookieShop.Advertise("peanut butter chocolate");
+cookieShop.Advertise("chocolate chip");
       System.out.println("My Balance is $" + cookieShop.TotalBalance);
 
     }
