@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 class Store {
     // instance fields
     String productType;
@@ -8,15 +9,42 @@ class Store {
     double customerPayment;
     double tax;
     double TotalBalance;
+    ArrayList<String> Ingredients = new ArrayList<String>();
+    ArrayList<Integer> IngredientCount = new ArrayList<Integer>();
     int[] TotalCookies = {0, 0, 0};
     String[] CookieTypes = {"chocolate chip", "peanut butter", "peanut butter chocolate"};
     boolean Open;
-public void AddToInventory(int CountToAdd, double MoneytoSubtract, int CookieTypeIndex){
-int newCount = inventoryCount + CountToAdd;
-inventoryCount = newCount;
-double Balance = TotalBalance - MoneytoSubtract;
-TotalBalance = Balance;
-TotalCookies[CookieTypeIndex] = TotalCookies[CookieTypeIndex] + CountToAdd;
+
+public void BuyIngredients(int newIngredients, double Cost, int CookieTypeIndex){
+    double Balance = TotalBalance - Cost;
+    TotalBalance = Balance;
+    if(Ingredients.size() == 0){
+    Ingredients.add(0, "flour");
+    IngredientCount.add(0, newIngredients);
+    Ingredients.add(1, "sugar");
+    IngredientCount.add(1, newIngredients);
+Ingredients.add(2, "butter");
+IngredientCount.add(2, newIngredients);
+Ingredients.add(3, "chocolate chip");
+Ingredients.add(4, "peanut butter");}
+if(IngredientCount.size() < 5){
+    IngredientCount.add(3, newIngredients);
+    IngredientCount.add(4, newIngredients);
+}
+    }
+public void Bake(int cookiesToBake, int CookieTypeIndex){
+if(IngredientCount.get(0) > cookiesToBake){
+   IngredientCount.set(0, IngredientCount.get(0) - cookiesToBake);
+   IngredientCount.set(1, IngredientCount.get(1) - cookiesToBake);
+   IngredientCount.set(2, IngredientCount.get(2) - cookiesToBake);
+       IngredientCount.set(3, IngredientCount.get(3) - cookiesToBake);
+    IngredientCount.set(3, IngredientCount.get(3) - cookiesToBake);
+    IngredientCount.set(4, IngredientCount.get(4) - cookiesToBake);
+    TotalCookies[CookieTypeIndex] = TotalCookies[CookieTypeIndex] + cookiesToBake;
+    inventoryCount = inventoryCount + cookiesToBake;}
+    else{
+        System.out.println("Not Enough Ingredients To Bake");
+    }
 }
 public void ListCookiesInStock(){
     for(var i=0; i<TotalCookies.length;i++){
@@ -52,8 +80,9 @@ public double calculateTax(double PricetoCalculate){
 }
 public void StockInventory(){
     for(int i = 0; i<=2; i++){
-        while(TotalCookies[i] <1000){
-            AddToInventory(1, 0.5, i);
+        while(inventoryCount <1000){
+            BuyIngredients(1000, 100, i);
+            Bake(100, i);
         }
     }
 }
@@ -89,6 +118,12 @@ Streetaddress = address;
  cookieShop.inventoryPrice +
  " We are located at " + cookieShop.Streetaddress);
 cookieShop.ListCookiesInStock();
+cookieShop.Bake(2, 0);
+System.out.println("These are the number of each Ingredient: " + cookieShop.IngredientCount);
+System.out.println("These are my cookie ingredients" + cookieShop.Ingredients);
+for(int item : cookieShop.TotalCookies){
+System.out.println(item);
+}
 cookieShop.getNumberofCookieType(2);
       cookieShop.Sell(700, 3000, true);
       cookieShop.StockInventory();
