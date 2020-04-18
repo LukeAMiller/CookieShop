@@ -3,7 +3,6 @@ import java.util.ArrayList;
 class Store {
     // instance fields
     String productType;
-    int inventoryCount;
     String Streetaddress;
     double inventoryPrice;
     double customerPayment;
@@ -30,6 +29,14 @@ IngredientCount.add(3, newIngredients);
 Ingredients.add(4, "peanut butter");
 IngredientCount.add(4, newIngredients);
     }
+    else{
+        IngredientCount.set(0, IngredientCount.get(0) + newIngredients);
+        IngredientCount.set(1, IngredientCount.get(1) + newIngredients);
+        IngredientCount.set(2, IngredientCount.get(2) + newIngredients);
+        IngredientCount.set(3, IngredientCount.get(3) + newIngredients);
+        IngredientCount.set(4, IngredientCount.get(4) + newIngredients);
+
+    }
     }
 public void Bake(int cookiesToBake, int CookieTypeIndex){
     if(IngredientCount.size() == 0){
@@ -49,7 +56,7 @@ else if(IngredientCount.get(0) > cookiesToBake){
     IngredientCount.set(4, IngredientCount.get(4) - cookiesToBake);
    }
     TotalCookies[CookieTypeIndex] = TotalCookies[CookieTypeIndex] + cookiesToBake;
-    inventoryCount = inventoryCount + cookiesToBake;}
+   }
     else{
         System.out.println("Not Enough Ingredients To Bake");
     }
@@ -68,12 +75,11 @@ public void Sell(int CustomerBought, double customerPayment, boolean Open, int C
 if(!Open){
     System.out.println("I'm sorry, we are closed.");
 }
-    else if(CustomerBought > inventoryCount){
+    else if(CustomerBought > TotalCookies[CookieTypeIndex]){
         System.out.println("I'm sorry, we don't have that many cookies currently in stock.");
     }
   else if(customerPayment  >= (inventoryPrice + tax)* CustomerBought ){
-        int newCount  = inventoryCount - CustomerBought;
-        inventoryCount = newCount;
+
         TotalCookies[CookieTypeIndex] = TotalCookies[CookieTypeIndex] - CustomerBought;
         double newMoney = TotalBalance + (inventoryPrice *CustomerBought);
         TotalBalance = newMoney;
@@ -100,18 +106,17 @@ else if(CookieType == "peanut butter"){
     else if(CookieType == "peanut butter chocolate"){
         System.out.println("Eat more " + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("pean")) + CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("butt")) +
         CookieTypes[2].toUpperCase().charAt(CookieTypes[2].indexOf("choc")) + " Cookies!");}
-
 }
     // constructor method
-    public Store(String product, int count, double price, String address) {
-      inventoryCount = count;
+    public Store(String product,  double price, String address) {
+
       inventoryPrice = price;
       productType = product;
 Streetaddress = address;
     }
     // main method
     public static void main(String[] args) {
-      Store cookieShop = new Store("cookies", 0, 3.75, "542 Sesame Street");
+      Store cookieShop = new Store("cookies", 3.75, "542 Sesame Street");
       boolean LessThan5Dollars = cookieShop.inventoryPrice < 5;
       System.out.println("Is the cookie less than 5 dollars?: " + LessThan5Dollars);
  cookieShop.calculateTax(cookieShop.inventoryPrice);
@@ -121,6 +126,7 @@ Streetaddress = address;
 cookieShop.ListCookiesInStock();
 cookieShop.BuyIngredients(100, 10);
 cookieShop.Bake(20, 0);
+cookieShop.BuyIngredients(100, 10);
 System.out.println("These are the number of each Ingredient: " + cookieShop.IngredientCount);
 System.out.println("These are my cookie ingredients" + cookieShop.Ingredients);
 cookieShop.Sell(5, 25, true, 0);
@@ -128,7 +134,6 @@ for(int item : cookieShop.TotalCookies){
 System.out.println(item);
 }
 cookieShop.getNumberofCookieType(0);
-
 cookieShop.Advertise("chocolate chip");
       System.out.println("My Balance is $" + cookieShop.TotalBalance);
 
